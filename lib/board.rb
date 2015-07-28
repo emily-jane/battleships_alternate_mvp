@@ -39,8 +39,8 @@ class Board
 					fail "Ships cannot overlap"
 				end
 			end
+			@ships
 		end
-			
 	end
 end
 
