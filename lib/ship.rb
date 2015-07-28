@@ -1,6 +1,6 @@
 class Ship
 	DEFAULT_LENGTH = 2
-	DEFAULT_DIRECTION = :E
+	DEFAULT_DIRECTION = :horizontal
 	
 	attr_reader :length, :direction
 
