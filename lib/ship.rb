@@ -10,6 +10,4 @@ class Ship
 		@direction = direction
 	end
 
-
-
 end
