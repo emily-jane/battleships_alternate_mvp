@@ -10,20 +10,20 @@ describe Board do
 	end
 
 	it "board should include ships" do
-		start_point1 = [1,1]
+		start_point1 = "A1"
 		subject.place(ship, start_point1)
 		expect(subject.ships.keys).to include ship
 	end
 
 	it "should generate cell locations from start_point" do
 		east_ship = double :ship, length: 3, direction: :E
-		subject.place(east_ship, [1, 1])
-		expect(subject.ships.values).to include [1, 2, 3]
+		subject.place(east_ship, "A1")
+		expect(subject.ships.values).to include ["A1", "A2", "A3"]
 	end
 
-	it "should raise error when placed off board" do
+	it "should raise error when front of ship goes off board" do
 		east_ship = double :ship, length: 3, direction: :E
-		expect{ subject.place(east_ship, [10, 10]) }.to raise_error "Ship can't be placed off board"
+		expect{ subject.place(east_ship, "J10") }.to raise_error "Ship can't be placed off board"
 	end
 
 

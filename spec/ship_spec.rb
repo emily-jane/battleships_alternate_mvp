@@ -18,9 +18,5 @@ describe Ship do
 		expect(subject.direction).to eq Ship::DEFAULT_DIRECTION
 	end
 
-	# it "direction should be N, E, W or S" do
-	# 	invalid_direction = [:A, :B, :C, :D, :F, :G, :H, :I, :J, :K, :L, :M, :N, :O, :P, :Q, :R, :T, :U, :V, :W, :X, :Y, :Z]
-	# 	expect{invalid_direction.include?(subject.direction)}.to raise_error "Invalid direction"
-	# end
 
 end
