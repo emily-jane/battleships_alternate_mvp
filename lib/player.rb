@@ -2,14 +2,15 @@ require_relative 'board'
 
 class Player
 
-	attr_reader :hits
+	attr_reader :hits, :misses
 
 	def initialize
 		@hits = []
+		@misses = []
 	end
 
 	def fire(coordinates)
-		@ships.values.each do |ship|
+		@ships.each do |ship|
 			if (ship & coordinates.to_a) == []
 				@misses << coordinates
 			else
