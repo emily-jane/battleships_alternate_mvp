@@ -11,3 +11,5 @@ class Numeric
     s
   end
 end
+@size = 26
+puts ('A'..'Z').include?('D')

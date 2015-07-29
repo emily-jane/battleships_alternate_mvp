@@ -13,10 +13,4 @@ describe Ship do
 	it "should not accept length above 5" do
 		expect{Ship.new(6)}.to raise_error "Length must be between 2 and 5"
 	end
-
-	it "should have a default direction" do
-		expect(subject.direction).to eq Ship::DEFAULT_DIRECTION
-	end
-
-
 end
