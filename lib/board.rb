@@ -53,7 +53,7 @@ class Board
 				fail "Ship can't be placed off board" unless on_grid?(number)
 				location << "#{letter}#{number}"
 			elsif direction == :N
-				#letter = letter.next
+				#letter = letter.next NEEED TO FINISH THIS!!!!!!
 				fail "Ship can't be placed off board" unless on_grid?(letter)
 				location << "#{letter}#{number}"
 			else fail "Please enter :N, :S, :E or :W"
