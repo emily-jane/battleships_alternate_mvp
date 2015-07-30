@@ -13,7 +13,7 @@ describe Board do
 		expect{ subject.all_positions(ship, "J10", :E) }.to raise_error "Ship can't be placed off board"
 	end
 
-	it "can get all postions for coordinate" do
+	it "can correctly calculate coordinates from size and direction" do
 		expect(subject.all_positions(ship, "A1", :E)).to eq ["A1","A2"]
 	end
 
@@ -46,5 +46,15 @@ describe Board do
 	it "direction should be N, E, W or S" do
 		expect{ subject.all_positions(ship,"D6", :K) }.to raise_error "Please enter :N, :S, :E or :W"
 	end
+
+	it "knows when the game is won" do
+		b = Board.new
+		ship = Ship.new
+		b.place(ship,"A1",:E)
+		player = Player.new
+		player.fire(b,"A1")
+		expect(player.fire(b,"A2")).to eq "YOU_WIN!!!!!!"
+	end
+
 
 end

@@ -8,13 +8,18 @@ class Player
 	def initialize
 		@hits = []
 		@misses = []
+
+		@prev_targets = []
+		# @board
 	end
 
-	def fire(coordinates)
-		if Board.hits?(coordinates)
+	def fire(board, coordinates)
+		fail "ALREADY TARGETED THERE" if @prev_targets.include?(coordinates)
+		if board.hits?(coordinates)
 			@hits << coordinates
-		else
-			@misses << coordinates
-		end
+			@prev_targets<<coordinates
+			else @misses << coordinates
+				@prev_targets<<coordinates
+			end
 	end
 end

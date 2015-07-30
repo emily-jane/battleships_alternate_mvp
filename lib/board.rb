@@ -4,19 +4,24 @@ class Board
 
 	DEFAULT_SIZE = 10
 
-	attr_reader :ships, :size, :location
+	attr_reader :ships, :size, :location, :ship_key
 
 	def initialize(size = DEFAULT_SIZE)
 		@ships = {}
 		@size = size
+		@total_ships = 0
+		@sunk_ships = 0
 	end
 
 	def place(ship, start_point, direction)
-
+		if ships.keys.include?(ship)
+			@ships.delete(ship)
+			# @total_ships -= 1
+		end
 		all_positions(ship, start_point, direction)
-
 		if ships == {}
 			ships.merge!(ship => location)
+			@total_ships += 1
 		else
 			count = 0
 			ships.values.each do |co_ords|
@@ -26,6 +31,7 @@ class Board
 			end
 				if count == 0
 						ships.merge!(ship => location)
+						@total_ships += 1
 				else
 					fail "Ships cannot overlap"
 				end
@@ -83,8 +89,35 @@ class Board
 	end
 
 	def hits?(coordinates)
-		@ships.values.each do |ship|
-			(ship & coordinates.to_a) != []
+		# @ships.values.flatten.include?(coordinates)
+		@ship_key = nil
+		@ships.each do |x,y|
+			if y.include?(coordinates)
+				@ship_key = @ships.key(y)
+			end
 		end
+			ship_damage(@ship_key)
 	end
+
+	 def ship_damage(ship_key)
+	 	# ship = ship_key.flatten
+	 	if ship_key != nil
+	 	ship_key.reduce_health
+	 		if ship_key.sunk?
+	 			@sunk_ships +=1
+	 			result = check_game_won
+	 			return result
+	 		end
+	 	end
+	 end
+
+	 def check_game_won
+	 	if @sunk_ships == @total_ships
+	 		"YOU_WIN!!!!!!"
+	 	else
+	 		"Only #{@total_ships-@sunk_ships} ships to go, ya land-lubber!"
+ 		end
+ 		end
+
+
 end
