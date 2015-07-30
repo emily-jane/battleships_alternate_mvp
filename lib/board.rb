@@ -4,10 +4,10 @@ class Board
 
 	DEFAULT_SIZE = 10
 
-	attr_reader :ships, :size, :direction, :location
+	attr_reader :ships, :size, :location
 
 	def initialize(size = DEFAULT_SIZE)
-		@ships = []
+		@ships = {}
 		@size = size
 	end
 
@@ -15,17 +15,17 @@ class Board
 
 		all_positions(ship, start_point, direction)
 
-		if ships == []
-			ships << location
+		if ships == {}
+			ships.merge!(ship => location)
 		else
 			count = 0
-			ships.each do |co_ords|
+			ships.values.each do |co_ords|
 				if (co_ords & location) != []
 					count += 1
 				end
 			end
 				if count == 0
-					ships << location
+						ships.merge!(ship => location)
 				else
 					fail "Ships cannot overlap"
 				end
@@ -53,7 +53,7 @@ class Board
 				fail "Ship can't be placed off board" unless on_grid?(number)
 				location << "#{letter}#{number}"
 			elsif direction == :N
-				#letter = letter.next NEEED TO FINISH THIS!!!!!!
+				letter = prev_char(letter)
 				fail "Ship can't be placed off board" unless on_grid?(letter)
 				location << "#{letter}#{number}"
 			else fail "Please enter :N, :S, :E or :W"
@@ -78,6 +78,13 @@ class Board
 		end
 	end
 
+	def prev_char(letter)
+		(letter.chr.ord - 1).chr
+	end
+
+	def hits?(coordinates)
+		@ships.values.each do |ship|
+			(ship & coordinates.to_a) != []
+		end
+	end
 end
-
-

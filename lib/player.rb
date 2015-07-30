@@ -1,4 +1,5 @@
 require_relative 'board'
+require_relative 'ship'
 
 class Player
 
@@ -10,12 +11,10 @@ class Player
 	end
 
 	def fire(coordinates)
-		@ships.each do |ship|
-			if (ship & coordinates.to_a) == []
-				@misses << coordinates
-			else
-				@hits << coordinates
-			end
+		if Board.hits?(coordinates)
+			@hits << coordinates
+		else
+			@misses << coordinates
 		end
 	end
 end
