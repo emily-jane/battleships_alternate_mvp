@@ -16,7 +16,6 @@ class Board
 	def place(ship, start_point, direction)
 		if ships.keys.include?(ship)
 			@ships.delete(ship)
-			# @total_ships -= 1
 		end
 		all_positions(ship, start_point, direction)
 		if ships == {}
@@ -88,36 +87,41 @@ class Board
 		(letter.chr.ord - 1).chr
 	end
 
-	def hits?(coordinates)
-		# @ships.values.flatten.include?(coordinates)
+	def check_on_board(coordinates)
 		@ship_key = nil
-		@ships.each do |x,y|
-			if y.include?(coordinates)
+		unless @ships.include?(coordinates)
+			false
+		else
 				@ship_key = @ships.key(y)
-			end
+				ship_damage(@ship_key)
+			true
 		end
-			ship_damage(@ship_key)
 	end
 
+	# def hits?(coordinates)
+		
+	# 	if check_on_board(coordinates) == true
+	# 		true
+	# 	else
+	# 		false
+	# 	end
+	# end
+
 	 def ship_damage(ship_key)
-	 	# ship = ship_key.flatten
 	 	if ship_key != nil
 	 	ship_key.reduce_health
 	 		if ship_key.sunk?
 	 			@sunk_ships +=1
-	 			result = check_game_won
-	 			return result
 	 		end
 	 	end
 	 end
 
 	 def check_game_won
-	 	if @sunk_ships == @total_ships
-	 		"YOU_WIN!!!!!!"
-	 	else
-	 		"Only #{@total_ships-@sunk_ships} ships to go, ya land-lubber!"
+		 	if @sunk_ships == @total_ships && @total_ships != 0
+		 		"YOU_WIN!!!!!!"
+		 	else
+		 		"Only #{@total_ships-@sunk_ships} ships to go, ya land-lubber!"
+	 		end
  		end
- 		end
-
 
 end

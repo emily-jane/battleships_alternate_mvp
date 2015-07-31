@@ -1,7 +1,7 @@
 class Ship
 	DEFAULT_LENGTH = 2
 
-	attr_reader :length
+	attr_reader :length, :hits, :sunk
 
 	def initialize(length = DEFAULT_LENGTH)
 		fail 'Length must be between 2 and 5' unless length > 1 && length < 6
